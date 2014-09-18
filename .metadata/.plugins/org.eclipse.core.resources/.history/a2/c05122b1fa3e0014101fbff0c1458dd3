@@ -1,0 +1,47 @@
+package projectPointFive;
+
+import processing.core.*;
+
+public class flyingWrecks extends collidableObject {
+	
+	PApplet parent;
+	
+	flyingWrecks(PApplet p, float x, float y, float w, float h){
+		parent = p;
+		
+		//setting variables
+		this.setPosX(x);
+		this.setPosY(y);
+		this.setWidth(w);
+		this.setHeight(h);
+	}
+	
+	@Override
+	boolean isColliding(int p_X, int p_Y){
+		//Do something
+		if(p_X > (posX-5) && p_X < (posX+width+5))
+		{
+			if(p_Y > posY+5 && p_Y < posY+height+5)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	void display(){
+		//re-draw the rectangles
+		parent.rect(posX, posY, width, height);
+	}
+	
+	@Override
+	void update(int s_width, int s_height){
+		//Do something
+		if(posX < (0-width)){
+			posX = s_width+width;
+		} else {
+			posX -= 5;
+		}
+	}
+}

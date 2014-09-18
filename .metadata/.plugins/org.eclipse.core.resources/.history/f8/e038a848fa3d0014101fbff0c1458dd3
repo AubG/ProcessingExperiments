@@ -1,0 +1,19 @@
+package projectPointFive;
+
+abstract class collidableObject {
+	public float posX, posY, width, height;
+	
+	// Get-ers
+	int getPosX(){ return posX; }
+	int getPosY(){ return posY; }
+	int getWidth(){ return width; }
+	int getHeight(){return height; }
+	
+	// Set-ers
+	void setPosX(float x){ posX = x; }
+	void setPosY(float y){ posY = y; }
+	void setWidth(float w){ width = w; }
+	void setHeight(float h){ height = h; }
+	
+	void display(){}
+}

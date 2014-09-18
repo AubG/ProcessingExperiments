@@ -1,0 +1,119 @@
+package projectPointFive;
+
+import java.util.ArrayList;
+
+import processing.core.PApplet;
+
+public class pointFive_main extends PApplet {
+	
+	int posX,
+		posY, 
+		screenWidth = 800, 
+		screenHeight = 400;
+	final int START_X = 400, 
+			START_Y = 380;
+	ArrayList<collidableObject> listWrecks = new ArrayList<collidableObject>();
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { "--present", "pointFive" });
+	}
+
+	public void setup() {
+		size(screenWidth, screenHeight);
+		frameRate(60);
+		
+		//First Creation
+		reset();
+	}
+	
+	// Creates and Resets the game
+	void reset(){
+		//Empty ArrayList and Re-populate
+		listWrecks.clear();
+		collidableShapes();
+		
+		//Draw Background
+		background(0);
+		
+		//CreatePlayer and reset position to start
+		ellipse(START_X, 
+				START_Y, 
+				30, 
+				30);
+		posX = START_X;
+		posY = START_Y;
+		
+		//Draw all collidable objects
+		drawCollidableObjects();
+	}
+	
+	//creates and adds collidableShapes to the listWrecks ArrayList
+	void collidableShapes(){
+		flyingWrecks f1 = new flyingWrecks(this, 400, 300, 150, 50);
+		listWrecks.add(f1);
+	}
+	
+	//Move Ellipse with keys
+	void playerMovement(){
+
+		if (keyPressed)
+		{
+			background(0);
+			drawCollidableObjects();
+			
+			switch(keyCode)
+			{
+			
+			case UP:
+				posY -= 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+				
+			case DOWN:
+				posY += 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+				
+			case LEFT:
+				posX -= 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+				
+			case RIGHT:
+				posX += 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+				
+			}
+		}
+	}
+
+	//Checks if ellipse is on screen
+	//(if not) resets to starting location
+	void inBounds(){
+		if(posX < 0 || posX > screenWidth){ reset(); }
+		if(posY < 0 || posY > screenHeight){ reset(); }
+	}
+	
+	void collisionCheck(){
+		inBounds();
+		for(collidableObject tempObj : listWrecks){
+			if(tempObj.isColliding(posX, posY)){ reset(); }
+		}
+	}
+	
+	public void drawCollidableObjects(){
+		for(collidableObject tempObj : listWrecks){
+			tempObj.display();
+		}
+	}
+	
+	public void draw() {
+		
+		moveCollidableObjects();
+		collisionCheck();
+		playerMovement();
+		
+		 
+	}
+}

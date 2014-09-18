@@ -1,0 +1,13 @@
+package projectPointFive;
+
+public class flyingWrecks extends collidableObject {
+	
+	void setup(){
+		
+	}
+	
+	@Override
+	void display(){
+		
+	}
+}

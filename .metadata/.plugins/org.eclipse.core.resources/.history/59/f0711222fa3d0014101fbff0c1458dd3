@@ -1,0 +1,16 @@
+package projectPointFive;
+
+public class flyingWrecks extends collidableObject {
+	
+	void setup(){
+		this.setPosX(200);
+		this.setPosY(150);
+		this.setWidth(80);
+		this.setHeight(35);
+	}
+	
+	@Override
+	void display(){
+		rect()
+	}
+}

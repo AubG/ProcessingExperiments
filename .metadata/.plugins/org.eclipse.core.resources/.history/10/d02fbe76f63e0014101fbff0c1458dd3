@@ -1,0 +1,106 @@
+package projectPointFive;
+
+import java.util.ArrayList;
+
+import processing.core.PApplet;
+
+public class pointFive_main extends PApplet {
+	
+	int posX,
+		posY, 
+		screenWidth = 800, 
+		screenHeight = 400;
+	final int START_X = 400, 
+			START_Y = 380;
+	ArrayList<collidableObject> wrecks = new ArrayList<collidableObject>();
+
+	public static void main(String args[]) {
+		PApplet.main(new String[] { "--present", "pointFive" });
+	}
+
+	public void setup() {
+		size(screenWidth, screenHeight);
+		background(0);
+		frameRate(60);
+		
+		ellipse(START_X,	// x_position
+				START_Y, 	// y_position
+				30, 		// width
+				30);		// height
+		
+		posX = START_X;
+		posY = START_Y;
+	}
+	
+	// Moving ellipse back to starting position
+	void reset(){
+		background(0);
+		ellipse(START_X, 
+				START_Y, 
+				30, 
+				30);
+		
+		posX = START_X;
+		posY = START_Y;
+	}
+	
+	void collidableShapes(){
+		flyingWrecks f1 = new flyingWrecks(this, 400, 300, 150, 50);
+		wrecks.add(f1);
+		for(collidableObject wreck : wrecks){
+			wreck.display();
+		}
+	}
+	
+	//Move Ellipse with keys
+	void movement(){
+
+		if (keyPressed)
+		{
+			switch(keyCode)
+			{
+			case UP:
+				background(0);
+				posY -= 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+			case DOWN:
+				background(0);
+				posY += 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+			case LEFT:
+				background(0);
+				posX -= 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+			case RIGHT:
+				background(0);
+				posX += 2;
+				ellipse(posX, posY, 30, 30);
+				break;
+			}
+			
+			collidableShapes();
+		}
+	}
+
+	//Checks if ellipse is on screen
+	//(if not) resets to starting location
+	void inBounds(){
+		if(posX < 0 || posX > screenWidth){ reset(); }
+		if(posY < 0 || posY > screenHeight){ reset(); }
+	}
+	
+	void collisionCheck(){
+		inBounds();
+	}
+	
+	public void draw() {
+		
+		collidableShapes();
+		collisionCheck();
+		movement();
+		 
+	}
+}
