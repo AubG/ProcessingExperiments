@@ -4,6 +4,8 @@ import processing.core.*;
 
 public class pO_main extends PApplet{
 	
+	private static final long serialVersionUID = 1L;
+	
 	ScreenManager s_M;
 	final int width = 800, height = 600;
 	
@@ -19,6 +21,10 @@ public class pO_main extends PApplet{
 	
 	public void draw(){
 		
+	}
+	
+	public void mouseClicked(){
+		s_M.iconSelection(mouseX, mouseY);
 	}
 	
 	public void keyReleased(){

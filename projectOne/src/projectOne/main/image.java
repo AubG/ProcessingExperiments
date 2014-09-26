@@ -7,12 +7,13 @@ public class image extends PImage{
 
 	PApplet parent;
 	PImage photo;
-	float posX, posY, icon_Width, icon_Height, aspect_Ratio;
+	float posX, posY, icon_Width, icon_Height, zoom_Width, zoom_Height, aspect_Ratio;
 	
 	image(PApplet p, PImage image){
 		parent = p;
 		photo = image;
 		createIcon();
+		createZoom();
 	}
 
 	// Sizes the icon of each image
@@ -29,6 +30,16 @@ public class image extends PImage{
 			aspect_Ratio = tempWidth/tempHeight;
 			icon_Width = icon_Height * aspect_Ratio;
 		}	
+	}
+	
+	public void createZoom(){
+		if(photo.width > photo.height){
+			zoom_Width = 700;
+			zoom_Height = zoom_Width * aspect_Ratio;
+		} else {
+			zoom_Height = 500;
+			zoom_Width = zoom_Height * aspect_Ratio;
+		}
 	}
 	
 	// sets position vars of image
@@ -52,6 +63,6 @@ public class image extends PImage{
 	
 	//Zooms in on image, and centers on screen
 	public void zoom(){
-		parent.image(photo, 400-(photo.width/2), 300-(photo.height/2), photo.width, photo.height);
+		parent.image(photo, 400-(zoom_Width/2), 300-(zoom_Height/2), zoom_Width, zoom_Height);
 	}
 }
